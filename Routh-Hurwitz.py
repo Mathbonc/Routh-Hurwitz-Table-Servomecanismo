@@ -7,10 +7,6 @@ class CoefficientError(Exception):
 
 #! Funções de matriz
 
-def getCoef():
-    coef = list(map(int, input("Por favor, digite apenas os coeficientes da função de transferência: (as^n + bs^(n-1) + cs^(n-2) ... zs^0)\n").split()))
-    return coef
-
 def get_element_value(det, row1, row2,an1):
     det = np.hstack([det, np.array([[row1,row2]]).T]) 
     print("======================================================")
@@ -87,6 +83,10 @@ def createRouthTable(coef):
     return rT
 
 #! Funções Auxiliares 
+
+def getCoef():
+    coef = list(map(int, input("Por favor, digite apenas os coeficientes da função de transferência: (as^n + bs^(n-1) + cs^(n-2) ... zs^0)\n").split()))
+    return coef
 
 def quitProgram ():
     q = input("Deseja sair? (Y/N): ").strip().upper()
