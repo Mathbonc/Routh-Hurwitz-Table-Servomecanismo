@@ -35,13 +35,13 @@ def get_Next_Row(rT, Row):
             det_value = get_element_value(det,column[Row],column[Row + 1],an1)
             print(f"Determinante do elemento ({Row+2},{idx+1})")
             det_value_final = get_element_value(det,0,0,an1)
-            new_Row.append(det_value)
-            new_Row.append(det_value_final)
+            new_Row.append(float(det_value))
+            new_Row.append(float(det_value_final))
         else:   
             #adiciona uma nova coluna ao determinante, de acordo com a iteração atual
             print(f"Determinante do elemento ({Row+2},{idx})")
             det_value = get_element_value(det,column[Row],column[Row + 1],an1)
-            new_Row.append(det_value)
+            new_Row.append(float(det_value))
 
     for val in new_Row:
         print(float(val), end=", ")
@@ -85,6 +85,7 @@ def createRouthTable(coef):
 #! Funções Auxiliares 
 
 def check_stability(table):
+    print(table[0])
     for i in range(1, len(table[0])):
         if table[i] * table[i - 1] < 0:  # Produto negativo indica mudança de sinal
             return "INSTÁVEL"
