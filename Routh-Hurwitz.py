@@ -85,9 +85,8 @@ def createRouthTable(coef):
 #! Funções Auxiliares 
 
 def check_stability(table):
-    print(table[0])
     for i in range(1, len(table[0])):
-        if table[i] * table[i - 1] < 0:  # Produto negativo indica mudança de sinal
+        if table[0][i] * table[0][i - 1] < 0:  # Produto negativo indica mudança de sinal
             return "INSTÁVEL"
     return "ESTÁVEL"
 
