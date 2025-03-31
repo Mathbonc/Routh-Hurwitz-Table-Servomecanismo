@@ -1,5 +1,10 @@
 import numpy as np
 
+#! Exception
+
+class CoefficientError(Exception):
+    pass
+
 #! Funções de matriz
 
 def getCoef():
@@ -43,14 +48,26 @@ def get_Next_Row(rT, Row):
             new_Row.append(det_value)
 
     for val in new_Row:
-        print(float(val), end=", ")  # Isso vai imprimir 8.26, 5.12, 3.14 um por um.
-    print(" ")
+        print(float(val), end=", ")
+    print("======================================================")
+
+    # Checa se o primeiro valor é 0
+    if(float(new_Row[0]) == 0):
+        # Caso seja, checa os próximos valores, se em algum momento o valor for != 0, ele tenta reverter os coeficientes
+        for i in new_Row:
+            if(float(i) == 0):
+                continue
+            else:
+                raise CoefficientError
+        print("Linha nula: o sistema não é estável")
+        raise SystemExit
+    
     return new_Row
 
 def createRouthTable(coef):
     Row1 = coef[::2]  # Coeficientes de índice par
     Row2 = coef[1::2]  # Coeficientes de índice ímpar
-    routhTable_num_Rows = len(coef) + 1 # Número de linhas da tabela de routh
+    routhTable_num_Rows = len(coef) # Número de linhas da tabela de routh
 
     # Garantir que as duas linhas tenham o mesmo tamanho 
     max_len = max(len(Row1), len(Row2))
@@ -106,7 +123,15 @@ def print_table(matrix):
 print("Bem-vindo ao Critério de Routh-Hurwitz")
 while True:
     coef = getCoef()
-    rT = createRouthTable(coef)
+
+    try:
+        rT = createRouthTable(coef)
+    except CoefficientError:
+        print("Linha iniciada com 0, tentando reverter os coeficientes.")
+        coef.reverse()
+        print(f"Novos coeficientes: {coef}")
+        rT = createRouthTable(coef)
+
     print("Tabelha de Routh-Hurwitz gerada:")
     print_table(rT)
     if(quitProgram()):
