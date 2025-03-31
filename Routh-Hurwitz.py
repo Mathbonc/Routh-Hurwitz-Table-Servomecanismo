@@ -84,6 +84,12 @@ def createRouthTable(coef):
 
 #! Funções Auxiliares 
 
+def check_stability(table):
+    for i in range(1, len(table[0])):
+        if table[i] * table[i - 1] < 0:  # Produto negativo indica mudança de sinal
+            return "INSTÁVEL"
+    return "ESTÁVEL"
+
 def getCoef():
     coef = list(map(int, input("Por favor, digite apenas os coeficientes da função de transferência: (as^n + bs^(n-1) + cs^(n-2) ... zs^0)\n").split()))
     return coef
@@ -134,6 +140,7 @@ while True:
 
     print("Tabelha de Routh-Hurwitz gerada:")
     print_table(rT)
+    print(f"Esse sistema é {check_stability(list(zip(*rT)))}")
     if(quitProgram()):
         break
     
